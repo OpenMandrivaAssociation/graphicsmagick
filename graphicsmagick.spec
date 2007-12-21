@@ -112,9 +112,9 @@ libraries and header files necessary to develop applications.
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%multiarch %{multiarch_bindir}/GraphicsMagick++-config
-%multiarch %{multiarch_bindir}/GraphicsMagick-config
-%multiarch %{multiarch_bindir}/GraphicsMagickWand-config
+%{_bindir}/GraphicsMagick++-config
+%{_bindir}/GraphicsMagick-config
+%{_bindir}/GraphicsMagickWand-config
 %dir %{_includedir}/GraphicsMagick
 %{_includedir}/GraphicsMagick/Magick++.h
 %dir %{_includedir}/GraphicsMagick/magick
