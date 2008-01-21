@@ -16,7 +16,7 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		Graphics
 URL:		http://www.graphicsmagick.org/
