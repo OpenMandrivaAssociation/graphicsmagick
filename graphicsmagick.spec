@@ -8,16 +8,17 @@
 %{?_with_graphwiz: %global enable_graphwiz 1}
 
 %define Name		GraphicsMagick
-%define libname         %mklibname %name %{major}
+%define libname         %mklibname %name 1
+%define libwandname	%mklibname graphicsmagickwand 0
+%define develname	%mklibname %name -d
 %define version         1.1.10
-%define major           %version
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 2
-License:	GPL
+Release:	%mkrel 3
+License:	GPLv2+
 Group:		Graphics
 URL:		http://www.graphicsmagick.org/
 Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.bz2
@@ -67,6 +68,7 @@ ImageMagick may be used.
 %package -n     %{libname}
 Summary:        %Name libraries
 Group:          System/Libraries
+Obsoletes:	%mklibname graphicsmagick 1.1.10
 
 %description -n %{libname}
 This package contains the libraries needed to run programs dynamically
@@ -77,21 +79,37 @@ linked with ImageMagick libraries.
 
 %files -n %{libname}
 %defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagick++.so.1
-%{_libdir}/libGraphicsMagick++.so.1.0.3
-%{_libdir}/libGraphicsMagick.so.1
-%{_libdir}/libGraphicsMagick.so.1.0.10
-%{_libdir}/libGraphicsMagickWand.so.0
-%{_libdir}/libGraphicsMagickWand.so.0.0.4
+%{_libdir}/libGraphicsMagick++.so.1*
+%{_libdir}/libGraphicsMagick.so.1*
 
 #--------------------------------------------------------------
 
-%package -n     %{libname}-devel
+%package -n     %{libwandname}
+Summary:        %Name libraries
+Group:          System/Libraries
+Conflicts:	%mklibname graphicsmagick 1.1.10
+
+%description -n %{libwandname}
+This package contains the libraries needed to run programs dynamically
+linked with ImageMagick libraries.
+
+%post -n %{libwandname} -p /sbin/ldconfig
+%postun -n %{libwandname} -p /sbin/ldconfig
+
+%files -n %{libwandname}
+%defattr(-,root,root,755)
+%{_libdir}/libGraphicsMagickWand.so.0*
+
+#--------------------------------------------------------------
+
+%package -n     %{develname}
 Summary:        Static libraries and header files for %{Name} app development
 Group:          Development/C
 Provides:       %{name}-devel = %{version}-%{release}
-Provides:       %{Name}-devel = %{version}-%{release}
+Provides:	%{Name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d graphicsmagick 1.1.10
 Requires:       %{libname} = %{version}
+Requires:	%{libwandname} = %{version}
 Requires:       libjbig-devel
 %if %{enable_jasper}
 Requires:       libjasper-devel
@@ -101,7 +119,7 @@ Requires:       libgraphviz-devel
 %define _requires_exceptions devel(libcdt)\\|devel(libcircogen)\\|devel(libcommon)\\|devel(libdotgen)\\|devel(libdotneato)\\|devel(libfdpgen)\\|devel(libgraph)\\|devel(libgvrender)\\|devel(libneatogen)\\|devel(libpack)\\|devel(libpathplan)\\|devel(libtwopigen)\\|devel(libgvc)\\|devel(libgvgd)
 %endif
 
-%description -n %{libname}-devel
+%description -n %{develname}
 If you want to create applications that will use ImageMagick code or
 APIs, you'll need to install these packages as well as
 ImageMagick. These additional packages aren't necessary if you simply
@@ -110,7 +128,7 @@ want to use ImageMagick, however.
 ImageMagick-devel is an addition to ImageMagick which includes static
 libraries and header files necessary to develop applications.
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_bindir}/GraphicsMagick++-config
 %{_bindir}/GraphicsMagick-config
