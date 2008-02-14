@@ -20,6 +20,7 @@ Version:	%{version}
 Release:	%mkrel 3
 License:	GPLv2+
 Group:		Graphics
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
 Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.bz2
 
