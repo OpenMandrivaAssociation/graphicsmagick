@@ -8,21 +8,21 @@
 %{?_with_graphwiz: %global enable_graphwiz 1}
 
 %define Name		GraphicsMagick
-%define libname         %mklibname %name 1
-%define libwandname	%mklibname graphicsmagickwand 0
+%define libname         %mklibname %name 2
+%define libwandname	%mklibname graphicsmagickwand 1
 %define develname	%mklibname %name -d
-%define version         1.1.10
+%define version         1.2
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 3
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
-Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.bz2
+Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.lzma
 
 BuildRequires:  x11-proto-devel
 BuildRequires:  perl-devel
@@ -46,9 +46,10 @@ ImageMagick may be used.
 
 %files
 %defattr(-,root,root)
+%doc ChangeLog *.txt
 %{_bindir}/gm
-%dir %{_libdir}/GraphicsMagick-1.1.10/config
-%{_libdir}/GraphicsMagick-1.1.10/config/*.mgk
+%dir %{_libdir}/GraphicsMagick-%{version}/config
+%{_libdir}/GraphicsMagick-%{version}/config/*.mgk
 %if %build_modules
 %dir %{_libdir}/%{Name}-%{version}/modules-%{qlev}
 %{_libdir}/%{Name}-%{version}/modules-%{qlev}/filters
@@ -69,7 +70,6 @@ ImageMagick may be used.
 %package -n     %{libname}
 Summary:        %Name libraries
 Group:          System/Libraries
-Obsoletes:	%mklibname graphicsmagick 1.1.10
 
 %description -n %{libname}
 This package contains the libraries needed to run programs dynamically
@@ -80,15 +80,14 @@ linked with ImageMagick libraries.
 
 %files -n %{libname}
 %defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagick++.so.1*
-%{_libdir}/libGraphicsMagick.so.1*
+%{_libdir}/libGraphicsMagick++.so.2*
+%{_libdir}/libGraphicsMagick.so.2*
 
 #--------------------------------------------------------------
 
 %package -n     %{libwandname}
 Summary:        %Name libraries
 Group:          System/Libraries
-Conflicts:	%mklibname graphicsmagick 1.1.10
 
 %description -n %{libwandname}
 This package contains the libraries needed to run programs dynamically
@@ -99,7 +98,7 @@ linked with ImageMagick libraries.
 
 %files -n %{libwandname}
 %defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagickWand.so.0*
+%{_libdir}/libGraphicsMagickWand.so.1*
 
 #--------------------------------------------------------------
 
@@ -179,25 +178,27 @@ This package contains HTML/PDF documentation of %{name}.
 
 %files doc
 %defattr(-,root,root)
-%dir %{_datadir}/GraphicsMagick-1.1.10
-%{_datadir}/GraphicsMagick-1.1.10/Copyright.txt
-%{_datadir}/GraphicsMagick-1.1.10/config/*.mgk
-%{_datadir}/GraphicsMagick-1.1.10/images/*.png
-%{_datadir}/GraphicsMagick-1.1.10/images/*.jpg
-%{_datadir}/GraphicsMagick-1.1.10/*.html
-%dir %{_datadir}/GraphicsMagick-1.1.10/www
-%{_datadir}/GraphicsMagick-1.1.10/www/*.css
-%{_datadir}/GraphicsMagick-1.1.10/www/*.c
-%{_datadir}/GraphicsMagick-1.1.10/www/*.html
-%dir %{_datadir}/GraphicsMagick-1.1.10/www/Magick++
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.html
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.jpg
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.fig
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.png
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.svg
-%{_datadir}/GraphicsMagick-1.1.10/www/Magick++/*.txt
-%dir %{_datadir}/GraphicsMagick-1.1.10/www/api
-%{_datadir}/GraphicsMagick-1.1.10/www/api/*.html
+%dir %{_datadir}/GraphicsMagick-%{version}
+%{_datadir}/GraphicsMagick-%{version}/Copyright.txt
+%{_datadir}/GraphicsMagick-%{version}/config/*.mgk
+%{_datadir}/GraphicsMagick-%{version}/images/*.png
+%{_datadir}/GraphicsMagick-%{version}/images/*.jpg
+%{_datadir}/GraphicsMagick-%{version}/images/*.xbm
+%{_datadir}/GraphicsMagick-%{version}/images/*.miff
+%{_datadir}/GraphicsMagick-%{version}/*.html
+%dir %{_datadir}/GraphicsMagick-%{version}/www
+%{_datadir}/GraphicsMagick-%{version}/www/*.css
+%{_datadir}/GraphicsMagick-%{version}/www/*.c
+%{_datadir}/GraphicsMagick-%{version}/www/*.html
+%dir %{_datadir}/GraphicsMagick-%{version}/www/Magick++
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.html
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.jpg
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.fig
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.png
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.svg
+%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.txt
+%dir %{_datadir}/GraphicsMagick-%{version}/www/api
+%{_datadir}/GraphicsMagick-%{version}/www/api/*.html
 
 
 #--------------------------------------------------------------
@@ -236,7 +237,7 @@ This package contains HTML/PDF documentation of %{name}.
 rm -rf %{buildroot}
 
 %makeinstall_std
-
+rm -f %buildroot%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
 
 %clean
 rm -rf %{buildroot}
