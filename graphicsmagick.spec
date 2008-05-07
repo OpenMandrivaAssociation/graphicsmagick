@@ -183,8 +183,6 @@ This package contains HTML/PDF documentation of %{name}.
 %{_datadir}/GraphicsMagick-%{version}/config/*.mgk
 %{_datadir}/GraphicsMagick-%{version}/images/*.png
 %{_datadir}/GraphicsMagick-%{version}/images/*.jpg
-%{_datadir}/GraphicsMagick-%{version}/images/*.xbm
-%{_datadir}/GraphicsMagick-%{version}/images/*.miff
 %{_datadir}/GraphicsMagick-%{version}/*.html
 %dir %{_datadir}/GraphicsMagick-%{version}/www
 %{_datadir}/GraphicsMagick-%{version}/www/*.css
