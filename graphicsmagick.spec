@@ -17,12 +17,13 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
 Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.lzma
+Patch2: GraphicsMagick-1.1.10-gcc43.patch
 
 BuildRequires:  x11-proto-devel
 BuildRequires:  perl-devel
@@ -204,6 +205,7 @@ This package contains HTML/PDF documentation of %{name}.
 %prep
 
 %setup -q -n %{Name}-%{version}
+%patch2 -p 1 -b .gcc43
 
 %build
 
