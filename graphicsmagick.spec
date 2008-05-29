@@ -11,13 +11,13 @@
 %define libname         %mklibname %name 2
 %define libwandname	%mklibname graphicsmagickwand 1
 %define develname	%mklibname %name -d
-%define version         1.2.1
+%define version         1.2.2
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 2
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -51,6 +51,8 @@ ImageMagick may be used.
 %{_bindir}/gm
 %dir %{_libdir}/GraphicsMagick-%{version}/config
 %{_libdir}/GraphicsMagick-%{version}/config/*.mgk
+%dir %{_datadir}/GraphicsMagick-%{version}/config
+%{_datadir}/GraphicsMagick-%{version}/config/*.mgk
 %if %build_modules
 %dir %{_libdir}/%{Name}-%{version}/modules-%{qlev}
 %{_libdir}/%{Name}-%{version}/modules-%{qlev}/filters
@@ -179,26 +181,7 @@ This package contains HTML/PDF documentation of %{name}.
 
 %files doc
 %defattr(-,root,root)
-%dir %{_datadir}/GraphicsMagick-%{version}
-%{_datadir}/GraphicsMagick-%{version}/Copyright.txt
-%{_datadir}/GraphicsMagick-%{version}/config/*.mgk
-%{_datadir}/GraphicsMagick-%{version}/images/*.png
-%{_datadir}/GraphicsMagick-%{version}/images/*.jpg
-%{_datadir}/GraphicsMagick-%{version}/*.html
-%dir %{_datadir}/GraphicsMagick-%{version}/www
-%{_datadir}/GraphicsMagick-%{version}/www/*.css
-%{_datadir}/GraphicsMagick-%{version}/www/*.c
-%{_datadir}/GraphicsMagick-%{version}/www/*.html
-%dir %{_datadir}/GraphicsMagick-%{version}/www/Magick++
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.html
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.jpg
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.fig
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.png
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.svg
-%{_datadir}/GraphicsMagick-%{version}/www/Magick++/*.txt
-%dir %{_datadir}/GraphicsMagick-%{version}/www/api
-%{_datadir}/GraphicsMagick-%{version}/www/api/*.html
-
+%_datadir/doc/GraphicsMagick
 
 #--------------------------------------------------------------
 
