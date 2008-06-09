@@ -78,8 +78,12 @@ Group:          System/Libraries
 This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %files -n %{libname}
 %defattr(-,root,root,755)
@@ -96,8 +100,12 @@ Group:          System/Libraries
 This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
 
+%if %mdkversion < 200900
 %post -n %{libwandname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{libwandname} -p /sbin/ldconfig
+%endif
 
 %files -n %{libwandname}
 %defattr(-,root,root,755)
