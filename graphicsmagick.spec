@@ -8,16 +8,16 @@
 %{?_with_graphwiz: %global enable_graphwiz 1}
 
 %define Name		GraphicsMagick
-%define libname         %mklibname %name 2
-%define libwandname	%mklibname graphicsmagickwand 1
+%define libname         %mklibname %name 3
+%define libwandname	%mklibname graphicsmagickwand 2
 %define develname	%mklibname %name -d
-%define version         1.2.5
+%define version         1.3.2
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick	
 Version:	%{version}
-Release:	%mkrel 2
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -88,8 +88,8 @@ linked with ImageMagick libraries.
 
 %files -n %{libname}
 %defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagick++.so.2*
-%{_libdir}/libGraphicsMagick.so.2*
+%{_libdir}/libGraphicsMagick++.so.3*
+%{_libdir}/libGraphicsMagick.so.3*
 
 #--------------------------------------------------------------
 
@@ -110,7 +110,7 @@ linked with ImageMagick libraries.
 
 %files -n %{libwandname}
 %defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagickWand.so.1*
+%{_libdir}/libGraphicsMagickWand.so.2*
 
 #--------------------------------------------------------------
 
@@ -213,11 +213,6 @@ This package contains HTML/PDF documentation of %{name}.
 %endif
     --enable-shared \
     --with-pic \
-%if %{enable_graphwiz}
-    --with-dot \
-%else
-    --without-dot \
-%endif
 %if %{enable_jasper}
     --with-jp2 \
 %else
