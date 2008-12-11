@@ -24,7 +24,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
 Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.lzma
 Patch0: graphicsmagick-linkage_fix.diff
-Patch2: GraphicsMagick-1.1.10-gcc43.patch
 
 BuildRequires:  x11-proto-devel
 BuildRequires:  perl-devel
@@ -195,10 +194,8 @@ This package contains HTML/PDF documentation of %{name}.
 #--------------------------------------------------------------
 
 %prep
-
 %setup -q -n %{Name}-%{version}
 %patch0 -p0 -b .linkage_fix
-%patch2 -p 1 -b .gcc43
 
 %build
 
