@@ -136,7 +136,7 @@ APIs, you'll need to install these packages as well as
 ImageMagick. These additional packages aren't necessary if you simply
 want to use ImageMagick, however.
 
-ImageMagick-devel is an addition to ImageMagick which includes static
+imagemagick-devel is an addition to ImageMagick which includes static
 libraries and header files necessary to develop applications.
 
 %files -n %{develname}
