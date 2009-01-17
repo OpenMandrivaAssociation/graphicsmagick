@@ -198,7 +198,7 @@ This package contains HTML/PDF documentation of %{name}.
 %patch0 -p0 -b .linkage_fix
 
 %build
-
+%define Werror_cflags %nil
 %configure2_5x \
     --enable-fast-install \
     --disable-ltdl-install \
