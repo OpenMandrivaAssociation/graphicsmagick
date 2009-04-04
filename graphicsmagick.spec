@@ -15,9 +15,9 @@
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
-Name:		graphicsmagick	
+Name:		graphicsmagick
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -27,6 +27,18 @@ Patch0: graphicsmagick-linkage_fix.diff
 
 BuildRequires:  x11-proto-devel
 BuildRequires:  perl-devel
+BuildRequires:	freetype2-devel
+Buildrequires:	tiff-devel
+BuildRequires:	png-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	jasper-devel
+BuildRequires:	libwmf-devel
+BuildRequires:	zlib-devel
+BuildRequires:	bzip2-devel
+BuildRequires:	libxml2-devel
+BuildRequires:	lcms-devel
+BuildRequires:	libgs-devel
+BuildRequires:	jbigkit-devel
 
 %description
 GraphicsMagick is the swiss army knife of image processing. It 
