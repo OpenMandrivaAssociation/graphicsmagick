@@ -17,7 +17,7 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	%{version}
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -126,19 +126,19 @@ linked with ImageMagick libraries.
 #--------------------------------------------------------------
 
 %package -n     %{develname}
-Summary:        Static libraries and header files for %{Name} app development
-Group:          Development/C
-Provides:       %{name}-devel = %{version}-%{release}
-Provides:	%{Name}-devel = %{version}-%{release}
-Obsoletes:	%mklibname -d graphicsmagick 1.1.10
-Requires:       %{libname} = %{version}
-Requires:	%{libwandname} = %{version}
-Requires:       libjbig-devel
+Summary: Static libraries and header files for %{Name} app development
+Group: Development/C
+Provides: %{name}-devel = %{version}-%{release}
+Provides: %{Name}-devel = %{version}-%{release}
+Obsoletes: %mklibname -d graphicsmagick 1.1.10
+Requires:  %{libname} = %{version}
+Requires: %{libwandname} = %{version}
+Requires:  jbig-devel
 %if %{enable_jasper}
-Requires:       libjasper-devel
+Requires: jasper-devel
 %endif
 %if %{enable_graphwiz}
-Requires:       libgraphviz-devel
+Requires: graphviz-devel
 %define _requires_exceptions devel(libcdt)\\|devel(libcircogen)\\|devel(libcommon)\\|devel(libdotgen)\\|devel(libdotneato)\\|devel(libfdpgen)\\|devel(libgraph)\\|devel(libgvrender)\\|devel(libneatogen)\\|devel(libpack)\\|devel(libpathplan)\\|devel(libtwopigen)\\|devel(libgvc)\\|devel(libgvgd)
 %endif
 
