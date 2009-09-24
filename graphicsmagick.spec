@@ -11,7 +11,7 @@
 %define libname         %mklibname %name 3
 %define libwandname	%mklibname graphicsmagickwand 2
 %define develname	%mklibname %name -d
-%define version         1.3.5
+%define version         1.3.7
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
@@ -22,7 +22,7 @@ License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
-Source0:	http://kent.dl.sourceforge.net/sourceforge/graphicsmagick/%{Name}-%{version}.tar.lzma
+Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{Name}-%{version}.tar.lzma
 Patch0: graphicsmagick-linkage_fix.diff
 
 BuildRequires:  x11-proto-devel
@@ -71,7 +71,6 @@ ImageMagick may be used.
 %dir %{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders
 %{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders/*.so
 %{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders/*.la
-%{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders/*.a
 %endif
 %{_mandir}/man1/GraphicsMagick++-config.1.*
 %{_mandir}/man1/GraphicsMagick-config.1.*
@@ -164,7 +163,6 @@ libraries and header files necessary to develop applications.
 %{_includedir}/GraphicsMagick/Magick++/*.h
 %dir %{_includedir}/GraphicsMagick/wand
 %{_includedir}/GraphicsMagick/wand/*.h
-%{_libdir}/*.a
 %attr(644,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
@@ -221,20 +219,24 @@ This package contains HTML/PDF documentation of %{name}.
     --without-modules \
 %endif
     --enable-shared \
+    --disable-static \
     --with-pic \
 %if %{enable_jasper}
     --with-jp2 \
 %else
     --without-jp2 \
 %endif
-    --with-perl-options="INSTALLDIRS=vendor" 
+    --with-perl-options="INSTALLDIRS=vendor"  \
+    --with-perl
 
 %make
+%make perl-build
 
 %install
 rm -rf %{buildroot}
 
 %makeinstall_std
+%makeinstall_std -C PerlMagick
 rm -f %buildroot%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
 
 %clean
