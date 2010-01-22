@@ -11,20 +11,19 @@
 %define libname         %mklibname %name 3
 %define libwandname	%mklibname graphicsmagickwand 2
 %define develname	%mklibname %name -d
-%define version         1.3.7
+%define version         1.3.8
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	%{version}
-Release:	%mkrel 3
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{Name}-%{version}.tar.lzma
 Patch0: graphicsmagick-linkage_fix.diff
-Patch1:		GraphicsMagick-1.3.7-CVE-2009-3736.diff
 BuildRequires:  x11-proto-devel
 BuildRequires:  perl-devel
 BuildRequires:	freetype2-devel
@@ -206,7 +205,6 @@ This package contains HTML/PDF documentation of %{name}.
 %prep
 %setup -q -n %{Name}-%{version}
 %patch0 -p0 -b .linkage_fix
-%patch1 -p0 -b .CVE-2009-3736
 
 %build
 %define Werror_cflags %nil
