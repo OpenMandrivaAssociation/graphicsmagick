@@ -11,7 +11,7 @@
 %define libname         %mklibname %name 3
 %define libwandname	%mklibname graphicsmagickwand 2
 %define develname	%mklibname %name -d
-%define version         1.3.11
+%define version         1.3.12
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
