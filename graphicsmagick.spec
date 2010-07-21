@@ -17,7 +17,7 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphics
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
