@@ -20,24 +20,27 @@ Version:	%{version}
 Release:	%mkrel 5
 License:	GPLv2+
 Group:		Graphics
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{Name}-%{version}.tar.lzma
-Patch0: graphicsmagick-linkage_fix.diff
-BuildRequires:  x11-proto-devel
-BuildRequires:  perl-devel
-BuildRequires:	freetype2-devel
-Buildrequires:	tiff-devel
-BuildRequires:	png-devel
-BuildRequires:	jpeg-devel
-BuildRequires:	jasper-devel
-BuildRequires:	libwmf-devel
-BuildRequires:	zlib-devel
+Patch0:		graphicsmagick-linkage_fix.diff
+Patch1:		graphicsmagick-1.3.12-libpng15.patch
+BuildRequires:	libtool
+BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	libxml2-devel
-BuildRequires:	lcms-devel
-BuildRequires:	libgs-devel
+BuildRequires:	freetype2-devel
+BuildRequires:	ghostscript-devel
+BuildRequires:	jasper-devel
 BuildRequires:	jbigkit-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	lcms-devel
+BuildRequires:	libwmf-devel
+BuildRequires:	libxml2-devel
+BuildRequires:  perl-devel
+BuildRequires:	png-devel
+Buildrequires:	tiff-devel
+BuildRequires:  x11-proto-devel
+BuildRequires:	zlib-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GraphicsMagick is the swiss army knife of image processing. It 
@@ -88,13 +91,6 @@ Group:          System/Libraries
 This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files -n %{libname}
 %defattr(-,root,root,755)
 %{_libdir}/libGraphicsMagick++.so.3*
@@ -109,13 +105,6 @@ Group:          System/Libraries
 %description -n %{libwandname}
 This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
-
-%if %mdkversion < 200900
-%post -n %{libwandname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libwandname} -p /sbin/ldconfig
-%endif
 
 %files -n %{libwandname}
 %defattr(-,root,root,755)
@@ -205,6 +194,7 @@ This package contains HTML/PDF documentation of %{name}.
 %prep
 %setup -q -n %{Name}-%{version}
 %patch0 -p0 -b .linkage_fix
+%patch1 -p1 -b .libpng15
 
 %build
 %define Werror_cflags %nil
