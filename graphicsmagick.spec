@@ -13,7 +13,7 @@
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
-oname:		graphicsmagick
+Name:		graphicsmagick
 Version:	1.3.12
 Release:	7
 License:	GPLv2+
