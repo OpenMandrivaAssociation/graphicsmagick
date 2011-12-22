@@ -135,7 +135,6 @@ libraries and header files necessary to develop applications.
 %{_includedir}/GraphicsMagick/Magick++/*.h
 %dir %{_includedir}/GraphicsMagick/wand
 %{_includedir}/GraphicsMagick/wand/*.h
-%attr(644,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
