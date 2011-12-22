@@ -1,31 +1,28 @@
+%define Werror_cflags %nil
+
 %define build_modules 1
-%{?_with_modules: %global build_modules 1}
-
 %define enable_jasper   1
-%{?_with_jasper: %global enable_jasper 1}
-
 %define enable_graphwiz 1
-%{?_with_graphwiz: %global enable_graphwiz 1}
 
-%define Name		GraphicsMagick
-%define libname         %mklibname %name 3
-%define libwandname	%mklibname graphicsmagickwand 2
-%define develname	%mklibname %name -d
-%define version         1.3.12
+%define major		3
+%define wand_major	2
+%define oname		GraphicsMagick
+%define libname		%mklibname %{name} %{major}
+%define libwandname	%mklibname graphicsmagickwand %{wand_major}
+%define develname	%mklibname %{name} -d
 %define qlev            Q8
 
 Summary:	An X application for displaying and manipulating images
-Name:		graphicsmagick
-Version:	%{version}
-Release:	%mkrel 7
+oname:		graphicsmagick
+Version:	1.3.12
+Release:	7
 License:	GPLv2+
 Group:		Graphics
 URL:		http://www.graphicsmagick.org/
-Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{Name}-%{version}.tar.lzma
+Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.lzma
 Patch0:		graphicsmagick-linkage_fix.diff
 Patch1:		graphicsmagick-1.3.12-libpng15.patch
 BuildRequires:	libtool
-BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	ghostscript-devel
@@ -40,7 +37,6 @@ BuildRequires:	png-devel
 Buildrequires:	tiff-devel
 BuildRequires:  x11-proto-devel
 BuildRequires:	zlib-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GraphicsMagick is the swiss army knife of image processing. It 
@@ -60,19 +56,17 @@ Python, Tcl, and Ruby. With some modification, language extensions for
 ImageMagick may be used.
 
 %files
-%defattr(-,root,root)
 %doc ChangeLog *.txt
 %{_bindir}/gm
 %dir %{_libdir}/GraphicsMagick-%{version}/config
 %{_libdir}/GraphicsMagick-%{version}/config/*.mgk
 %dir %{_datadir}/GraphicsMagick-%{version}/config
 %{_datadir}/GraphicsMagick-%{version}/config/*.mgk
-%if %build_modules
-%dir %{_libdir}/%{Name}-%{version}/modules-%{qlev}
-%{_libdir}/%{Name}-%{version}/modules-%{qlev}/filters
-%dir %{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders
-%{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders/*.so
-%{_libdir}/%{Name}-%{version}/modules-%{qlev}/coders/*.la
+%if %{build_modules}
+%dir %{_libdir}/%{oname}-%{version}/modules-%{qlev}
+%{_libdir}/%{oname}-%{version}/modules-%{qlev}/filters
+%dir %{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders
+%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.so
 %endif
 %{_mandir}/man1/GraphicsMagick++-config.1.*
 %{_mandir}/man1/GraphicsMagick-config.1.*
@@ -84,7 +78,7 @@ ImageMagick may be used.
 #--------------------------------------------------------------
 
 %package -n     %{libname}
-Summary:        %Name libraries
+Summary:        %{oname} libraries
 Group:          System/Libraries
 
 %description -n %{libname}
@@ -92,14 +86,13 @@ This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
 
 %files -n %{libname}
-%defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagick++.so.3*
-%{_libdir}/libGraphicsMagick.so.3*
+%{_libdir}/libGraphicsMagick++.so.%{major}*
+%{_libdir}/libGraphicsMagick.so.%{major}*
 
 #--------------------------------------------------------------
 
 %package -n     %{libwandname}
-Summary:        %Name libraries
+Summary:        %{oname} libraries
 Group:          System/Libraries
 
 %description -n %{libwandname}
@@ -107,25 +100,16 @@ This package contains the libraries needed to run programs dynamically
 linked with ImageMagick libraries.
 
 %files -n %{libwandname}
-%defattr(-,root,root,755)
-%{_libdir}/libGraphicsMagickWand.so.2*
+%{_libdir}/libGraphicsMagickWand.so.%{wand_major}*
 
 #--------------------------------------------------------------
 
 %package -n     %{develname}
-Summary: Static libraries and header files for %{Name} app development
+Summary: Static libraries and header files for %{oname} app development
 Group: Development/C
 Provides: %{name}-devel = %{version}-%{release}
-Provides: %{Name}-devel = %{version}-%{release}
-Obsoletes: %mklibname -d graphicsmagick 1.1.10
 Requires:  %{libname} = %{version}
 Requires: %{libwandname} = %{version}
-Requires:  jbig-devel
-%if %{enable_jasper}
-Requires: jasper-devel
-%endif
-%if %{enable_graphwiz}
-Requires: graphviz-devel
 %define _requires_exceptions devel(libcdt)\\|devel(libcircogen)\\|devel(libcommon)\\|devel(libdotgen)\\|devel(libdotneato)\\|devel(libfdpgen)\\|devel(libgraph)\\|devel(libgvrender)\\|devel(libneatogen)\\|devel(libpack)\\|devel(libpathplan)\\|devel(libtwopigen)\\|devel(libgvc)\\|devel(libgvgd)
 %endif
 
@@ -139,7 +123,6 @@ imagemagick-devel is an addition to ImageMagick which includes static
 libraries and header files necessary to develop applications.
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_bindir}/GraphicsMagick++-config
 %{_bindir}/GraphicsMagick-config
 %{_bindir}/GraphicsMagickWand-config
@@ -158,7 +141,7 @@ libraries and header files necessary to develop applications.
 #--------------------------------------------------------------
 
 %package -n     perl-Graphics-Magick
-Summary:        Libraries and modules for access to %Name from perl
+Summary:        Libraries and modules for access to %{oname} from perl
 Group:          Development/Perl
 Requires:       %{name} = %{version}
 %if %{enable_graphwiz}
@@ -166,11 +149,10 @@ Requires:       graphviz
 %endif
 
 %description -n perl-Graphics-Magick
-This is the %Name perl support package. It includes perl modules
+This is the %{oname} perl support package. It includes perl modules
 and support files for access to ImageMagick library from perl.
 
 %files -n perl-Graphics-Magick
-%defattr(-,root,root)
 %{_mandir}/man3*/*::*.3pm*
 %{perl_vendorarch}/Graphics
 %{perl_vendorarch}/auto
@@ -186,23 +168,21 @@ This package contains HTML/PDF documentation of %{name}.
 
 
 %files doc
-%defattr(-,root,root)
-%_datadir/doc/GraphicsMagick
+%{_datadir}/doc/GraphicsMagick
 
 #--------------------------------------------------------------
 
 %prep
-%setup -q -n %{Name}-%{version}
+%setup -qn %{oname}-%{version}
 %patch0 -p0 -b .linkage_fix
 %patch1 -p1 -b .libpng15
 
 %build
-%define Werror_cflags %nil
 %configure2_5x \
     --enable-fast-install \
     --disable-ltdl-install \
     --without-dps \
-%if %build_modules
+%if %{build_modules}
     --with-modules \
 %else
     --without-modules \
@@ -226,7 +206,5 @@ rm -rf %{buildroot}
 
 %makeinstall_std
 %makeinstall_std -C PerlMagick
-rm -f %buildroot%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
+rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
 
-%clean
-rm -rf %{buildroot}
