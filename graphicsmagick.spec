@@ -110,6 +110,7 @@ Group: Development/C
 Provides: %{name}-devel = %{version}-%{release}
 Requires:  %{libname} = %{version}
 Requires: %{libwandname} = %{version}
+%if %{enable_graphwiz}
 %define _requires_exceptions devel(libcdt)\\|devel(libcircogen)\\|devel(libcommon)\\|devel(libdotgen)\\|devel(libdotneato)\\|devel(libfdpgen)\\|devel(libgraph)\\|devel(libgvrender)\\|devel(libneatogen)\\|devel(libpack)\\|devel(libpathplan)\\|devel(libtwopigen)\\|devel(libgvc)\\|devel(libgvgd)
 %endif
 
