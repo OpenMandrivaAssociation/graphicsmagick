@@ -208,3 +208,5 @@ rm -rf %{buildroot}
 %makeinstall_std -C PerlMagick
 rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
 
+# cleanup
+rm -f %{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.*a
