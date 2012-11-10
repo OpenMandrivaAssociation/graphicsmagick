@@ -1,0 +1,12 @@
+diff -urN GraphicsMagick-1.3.14/PerlMagick/Makefile.PL.in GraphicsMagick-1.3.14-patched/PerlMagick/Makefile.PL.in
+--- GraphicsMagick-1.3.14/PerlMagick/Makefile.PL.in	2012-02-27 02:13:08.000000000 +1100
++++ GraphicsMagick-1.3.14-patched/PerlMagick/Makefile.PL.in	2012-03-30 00:06:14.020251604 +1100
+@@ -78,7 +78,7 @@
+    'INSTALLBIN'	=> $magick_BIN_DIR,
+ 
+    # Library specification
+-   'LIBS'	=> ["-L$magick_LIB_DIR -lGraphicsMagick $magick_LDFLAGS $magick_DEP_LIBS"],
++   'LIBS'	=> ["-L$magick_LIB_DIR -L../magick/.libs -lGraphicsMagick $magick_LDFLAGS $magick_DEP_LIBS"],
+ 
+    # Perl binary name (if a Perl binary is built)
+    'MAP_TARGET'	=> 'PerlMagick',
