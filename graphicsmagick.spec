@@ -23,7 +23,7 @@ Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{o
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
 BuildRequires:	libtool
 BuildRequires:	bzip2-devel
-BuildRequires:	freetype2-devel
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	ghostscript-devel
 BuildRequires:	jasper-devel
 BuildRequires:	jbigkit-devel
