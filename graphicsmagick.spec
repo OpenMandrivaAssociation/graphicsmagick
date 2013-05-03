@@ -4,39 +4,40 @@
 %define	enable_jasper	1
 %define	enable_graphwiz	1
 
+%define	oname		GraphicsMagick
 %define	major		3
 %define	wand_major	2
-%define	oname		GraphicsMagick
 %define	libname		%mklibname %{name} %{major}
+%define	libnamepp	%mklibname %{name}++ %{major}
 %define	libwandname	%mklibname graphicsmagickwand %{wand_major}
-%define	develname	%mklibname %{name} -d
+%define	devname		%mklibname %{name} -d
 %define	qlev		Q8
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.18
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
-URL:		http://www.graphicsmagick.org/
+Url:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.xz
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
-BuildRequires:	libtool
-BuildRequires:	libtool-devel
+
 BuildRequires:	bzip2-devel
-BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	ghostscript-devel
-BuildRequires:	jasper-devel
 BuildRequires:	jbigkit-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	lcms-devel
+BuildRequires:	libtool-devel
 BuildRequires:	libwmf-devel
-BuildRequires:	libxml2-devel
 BuildRequires:	perl-devel
-BuildRequires:	png-devel
-Buildrequires:	tiff-devel
-BuildRequires:	x11-proto-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(jasper)
+BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(libpng15)
+Buildrequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(xproto)
+BuildRequires:	pkgconfig(zlib)
 
 %description
 GraphicsMagick is the swiss army knife of image processing. It 
@@ -82,12 +83,23 @@ Summary:	%{oname} libraries
 Group:		System/Libraries
 
 %description -n %{libname}
-This package contains the libraries needed to run programs dynamically
-linked with ImageMagick libraries.
+This package contains a shared library for %{name}.
 
 %files -n %{libname}
-%{_libdir}/libGraphicsMagick++.so.%{major}*
 %{_libdir}/libGraphicsMagick.so.%{major}*
+
+#--------------------------------------------------------------
+
+%package -n %{libnamepp}
+Summary:	%{oname} libraries
+Group:		System/Libraries
+Conflicts:	%{_lib}graphicsmagick3 < 1.3.18-2
+
+%description -n %{libnamepp}
+This package contains a shared library for %{name}.
+
+%files -n %{libnamepp}
+%{_libdir}/libGraphicsMagick++.so.%{major}*
 
 #--------------------------------------------------------------
 
@@ -96,31 +108,25 @@ Summary:	%{oname} libraries
 Group:		System/Libraries
 
 %description -n %{libwandname}
-This package contains the libraries needed to run programs dynamically
-linked with ImageMagick libraries.
+This package contains a shared library for %{name}.
 
 %files -n %{libwandname}
 %{_libdir}/libGraphicsMagickWand.so.%{wand_major}*
 
 #--------------------------------------------------------------
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Header files for %{oname} app development
 Group:		Development/C
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}
+Requires:	%{libnamepp} = %{version}
 Requires:	%{libwandname} = %{version}
 
-%description -n %{develname}
-If you want to create applications that will use ImageMagick code or
-APIs, you'll need to install these packages as well as
-ImageMagick. These additional packages aren't necessary if you simply
-want to use ImageMagick, however.
+%description -n %{devname}
+This package contains the development files for %{name}.
 
-imagemagick-devel is an addition to ImageMagick which includes static
-libraries and header files necessary to develop applications.
-
-%files -n %{develname}
+%files -n %{devname}
 %{_bindir}/GraphicsMagick++-config
 %{_bindir}/GraphicsMagick-config
 %{_bindir}/GraphicsMagickWand-config
@@ -148,7 +154,7 @@ Requires:	graphviz
 
 %description -n perl-Graphics-Magick
 This is the %{oname} perl support package. It includes perl modules
-and support files for access to ImageMagick library from perl.
+and support files for access to %{oname} library from perl.
 
 %files -n perl-Graphics-Magick
 %{_mandir}/man3*/*::*.3pm*
@@ -175,35 +181,30 @@ This package contains HTML/PDF documentation of %{name}.
 
 %build
 %configure2_5x \
-    --enable-fast-install \
-    --disable-ltdl-install \
-    --without-dps \
+	--enable-fast-install \
+	--disable-ltdl-install \
+	--without-dps \
 %if %{build_modules}
-    --with-modules \
+	--with-modules \
 %else
-    --without-modules \
+	--without-modules \
 %endif
-    --enable-shared \
-    --disable-static \
-    --with-pic \
+	--enable-shared \
+	--disable-static \
+	--with-pic \
 %if %{enable_jasper}
-    --with-jp2 \
+	--with-jp2 \
 %else
-    --without-jp2 \
+	--without-jp2 \
 %endif
-    --with-perl-options="INSTALLDIRS=vendor"  \
-    --with-perl
+	--with-perl-options="INSTALLDIRS=vendor"  \
+	--with-perl
 
 %make
 %make perl-build
 
 %install
-%__rm -rf %{buildroot}
-
 %makeinstall_std
 %makeinstall_std -C PerlMagick
-%__rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
-
-# cleanup
-%__rm -f %{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.*a
+rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
 
