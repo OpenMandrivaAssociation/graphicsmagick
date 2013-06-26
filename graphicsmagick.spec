@@ -33,7 +33,7 @@ BuildRequires:	perl-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(lcms)
-BuildRequires:	pkgconfig(libpng15)
+BuildRequires:	pkgconfig(libpng)
 Buildrequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(xproto)
