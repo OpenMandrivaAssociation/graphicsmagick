@@ -13,10 +13,12 @@
 %define	devname		%mklibname %{name} -d
 %define	qlev		Q8
 
+%define __noautoprov '.*\.so'
+
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.18
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
@@ -150,7 +152,6 @@ Requires:	%{name} = %{version}
 %if %{enable_graphwiz}
 Requires:	graphviz
 %endif
-%define __noautoprov Magic.so
 
 %description -n perl-Graphics-Magick
 This is the %{oname} perl support package. It includes perl modules
