@@ -1,24 +1,24 @@
-%define	Werror_cflags	%nil
+%define Werror_cflags %nil
 
-%define	build_modules	1
-%define	enable_jasper	1
-%define	enable_graphwiz	1
+%define build_modules 1
+%define enable_jasper 1
+%define enable_graphwiz 1
 
-%define	oname		GraphicsMagick
-%define	major		3
-%define	wand_major	2
-%define	libname		%mklibname %{name} %{major}
-%define	libnamepp	%mklibname %{name}++ %{major}
-%define	libwandname	%mklibname graphicsmagickwand %{wand_major}
-%define	devname		%mklibname %{name} -d
-%define	qlev		Q8
+%define oname GraphicsMagick
+%define major 3
+%define wand_major 2
+%define libname %mklibname %{name} %{major}
+%define libnamepp %mklibname %{name}++ %{major}
+%define libwandname %mklibname graphicsmagickwand %{wand_major}
+%define devname %mklibname %{name} -d
+%define qlev Q8
 
 %define __noautoprov '.*\.so$'
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.19
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
@@ -34,7 +34,7 @@ BuildRequires:	libwmf-devel
 BuildRequires:	perl-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(jasper)
-BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpng)
 Buildrequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
@@ -181,7 +181,8 @@ This package contains HTML/PDF documentation of %{name}.
 %patch0 -p1 -b .linkage
 
 %build
-%configure2_5x \
+%configure \
+	--without-lcms \
 	--enable-fast-install \
 	--disable-ltdl-install \
 	--without-dps \
