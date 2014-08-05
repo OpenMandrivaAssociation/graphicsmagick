@@ -24,6 +24,7 @@ Group:		Graphics
 Url:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.xz
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
+Patch1:		GraphicsMagick-1.3.19-clang.patch
 
 BuildRequires:	bzip2-devel
 BuildRequires:	ghostscript-devel
@@ -178,7 +179,7 @@ This package contains HTML/PDF documentation of %{name}.
 
 %prep
 %setup -qn %{oname}-%{version}
-%patch0 -p1 -b .linkage
+%apply_patches
 
 %build
 %configure \
