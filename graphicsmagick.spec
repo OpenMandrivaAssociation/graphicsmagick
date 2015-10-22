@@ -1,30 +1,36 @@
 %define Werror_cflags %nil
 
+%define _disable_lto 1
+%define _disable_rebuild_configure 1
+%define _disable_ld_no_undefined 1
+
 %define build_modules 1
 %define enable_jasper 1
 %define enable_graphwiz 1
 
 %define oname GraphicsMagick
 %define major 3
+%define ppmajor 12
 %define wand_major 2
 %define libname %mklibname %{name} %{major}
-%define libnamepp %mklibname %{name}++ %{major}
+%define libnamepp %mklibname %{name}++ %{ppmajor}
 %define libwandname %mklibname graphicsmagickwand %{wand_major}
 %define devname %mklibname %{name} -d
 %define qlev Q8
+
+%define _disable_rebuild_configure 1
 
 %define __noautoprov '.*\.so$'
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
-Version:	1.3.19
-Release:	5
+Version:	1.3.22
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.xz
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
-Patch1:		GraphicsMagick-1.3.19-clang.patch
 
 BuildRequires:	bzip2-devel
 BuildRequires:	ghostscript-devel
@@ -102,7 +108,7 @@ Conflicts:	%{_lib}graphicsmagick3 < 1.3.18-2
 This package contains a shared library for %{name}.
 
 %files -n %{libnamepp}
-%{_libdir}/libGraphicsMagick++.so.%{major}*
+%{_libdir}/libGraphicsMagick++.so.%{ppmajor}*
 
 #--------------------------------------------------------------
 
@@ -182,6 +188,8 @@ This package contains HTML/PDF documentation of %{name}.
 %apply_patches
 
 %build
+export CC=gcc
+export CXX=g++
 %configure \
 	--without-lcms \
 	--enable-fast-install \

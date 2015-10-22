@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   GraphicsMagick-1.3.19.tar.xz: 621c3e9a3b12e38dad225ee3466fd55a24c62066
+sources:
+  GraphicsMagick-1.3.22.tar.xz: d397bcec3eb5d18364037e3aa167f6069d1df4ff
