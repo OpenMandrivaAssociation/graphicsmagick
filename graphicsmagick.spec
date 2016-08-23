@@ -24,7 +24,7 @@
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
-Version:	1.3.23
+Version:	1.3.24
 Release:	1
 License:	GPLv2+
 Group:		Graphics
@@ -188,8 +188,8 @@ This package contains HTML/PDF documentation of %{name}.
 %apply_patches
 
 %build
-export CC=gcc
-export CXX=g++
+%global optflags %optflags -O3
+
 %configure \
 	--without-lcms \
 	--enable-fast-install \
