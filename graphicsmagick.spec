@@ -32,7 +32,8 @@ Url:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.xz
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
 
-BuildRequires:	bzip2-devel
+BuildRequires:	pkgconfig(bzip2)
+BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	ghostscript-devel
 BuildRequires:	jbigkit-devel
 BuildRequires:	jpeg-devel
