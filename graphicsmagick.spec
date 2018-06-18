@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(xproto)
+BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(zlib)
 
 %description
