@@ -37,6 +37,7 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	ghostscript-devel
 BuildRequires:	jbigkit-devel
 BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	libtool-devel
 BuildRequires:	libwmf-devel
 BuildRequires:	perl-devel
@@ -48,6 +49,7 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(xproto)
+BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(zlib)
