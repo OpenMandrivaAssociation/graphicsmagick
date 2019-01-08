@@ -54,6 +54,7 @@ BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libxml-2.0)
 
 %description
 GraphicsMagick is the swiss army knife of image processing. It 
