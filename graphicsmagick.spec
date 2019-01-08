@@ -20,12 +20,12 @@
 
 %define _disable_rebuild_configure 1
 
-%define __noautoprov '.*\.so$'
+%global __provides_exclude_from ^%{_libdir}/GraphicsMagick-%{version}/.*\\.(la|so)$
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.31
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
@@ -36,10 +36,11 @@ BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	ghostscript-devel
 BuildRequires:	jbigkit-devel
-BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(jpeg)
 BuildRequires:	libtool-devel
 BuildRequires:	libwmf-devel
 BuildRequires:	perl-devel
+BuildRequires:	xdg-utils
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(lcms2)
@@ -48,6 +49,7 @@ BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(xproto)
 BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(zlib)
 
 %description
@@ -193,10 +195,9 @@ This package contains HTML/PDF documentation of %{name}.
 %global optflags %optflags -O3
 
 %configure \
-	--without-lcms \
+	--with-lcms2 \
 	--enable-openmp \
 	--enable-fast-install \
-	--disable-ltdl-install \
 	--without-dps \
 %if %{build_modules}
 	--with-modules \
@@ -205,6 +206,7 @@ This package contains HTML/PDF documentation of %{name}.
 %endif
 	--enable-shared \
 	--disable-static \
+	--with-threads \
 	--with-pic \
 %if %{enable_jasper}
 	--with-jp2 \
@@ -214,11 +216,10 @@ This package contains HTML/PDF documentation of %{name}.
 	--with-perl-options="INSTALLDIRS=vendor"  \
 	--with-perl
 
-%make
-%make perl-build
+%make_build
+%make_build perl-build
 
 %install
-%makeinstall_std
-%makeinstall_std -C PerlMagick
+%make_install
+%make_install -C PerlMagick
 rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
-
