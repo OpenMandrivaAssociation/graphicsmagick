@@ -36,7 +36,7 @@ BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	ghostscript-devel
 BuildRequires:	jbigkit-devel
-BuildRequires:	pkgconfig(jpeg)
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	libtool-devel
 BuildRequires:	libwmf-devel
 BuildRequires:	perl-devel
