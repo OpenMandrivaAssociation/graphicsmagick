@@ -3,6 +3,8 @@
 %define _disable_lto 1
 %define _disable_rebuild_configure 1
 %define _disable_ld_no_undefined 1
+# ImageMagick actually uses libtool to load its modules
+%define dont_remove_libtool_files 1
 
 %define build_modules 1
 %define enable_jasper 1
@@ -25,7 +27,7 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.33
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
@@ -84,6 +86,7 @@ ImageMagick may be used.
 %dir %{_libdir}/%{oname}-%{version}/modules-%{qlev}
 %{_libdir}/%{oname}-%{version}/modules-%{qlev}/filters
 %dir %{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders
+%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.la
 %{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.so
 %endif
 %{_mandir}/man1/GraphicsMagick++-config.1.*
@@ -227,3 +230,5 @@ This package contains HTML/PDF documentation of %{name}.
 %make_install
 %make_install -C PerlMagick
 rm -f %{buildroot}%{_datadir}/GraphicsMagick-%{version}/{ChangeLog,NEWS.txt}
+# We only need *.la crap for modules
+rm -f %{buildroot}%{_libdir}/*.la
