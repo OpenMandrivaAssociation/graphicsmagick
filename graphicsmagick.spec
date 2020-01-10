@@ -196,7 +196,7 @@ This package contains HTML/PDF documentation of %{name}.
 
 %prep
 %setup -qn %{oname}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 %global optflags %optflags -O3
