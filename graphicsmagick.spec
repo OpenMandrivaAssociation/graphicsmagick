@@ -36,7 +36,6 @@ Patch0:		GraphicsMagick-1.3.14-linkage.patch
 
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(liblzma)
-BuildRequires:	ghostscript-devel
 BuildRequires:	jbigkit-devel
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libzstd)
