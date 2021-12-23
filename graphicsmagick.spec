@@ -23,11 +23,12 @@
 %define _disable_rebuild_configure 1
 
 %global __provides_exclude_from ^%{_libdir}/GraphicsMagick-%{version}/.*\\.(la|so)$
+%global optflags %{optflags} -O3
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.37
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
@@ -78,8 +79,10 @@ ImageMagick may be used.
 %files
 %doc ChangeLog *.txt
 %{_bindir}/gm
+%dir %{_libdir}/GraphicsMagick-%{version}
 %dir %{_libdir}/GraphicsMagick-%{version}/config
 %{_libdir}/GraphicsMagick-%{version}/config/*.mgk
+%dir %{_datadir}/GraphicsMagick-%{version}
 %dir %{_datadir}/GraphicsMagick-%{version}/config
 %{_datadir}/GraphicsMagick-%{version}/config/*.mgk
 %if %{build_modules}
@@ -89,12 +92,12 @@ ImageMagick may be used.
 %{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.la
 %{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.so
 %endif
-%{_mandir}/man1/GraphicsMagick++-config.1.*
-%{_mandir}/man1/GraphicsMagick-config.1.*
-%{_mandir}/man1/GraphicsMagickWand-config.1.*
-%{_mandir}/man1/gm.1.*
-%{_mandir}/man4/miff.4.*
-%{_mandir}/man5/quantize.5.*
+%doc %{_mandir}/man1/GraphicsMagick++-config.1.*
+%doc %{_mandir}/man1/GraphicsMagick-config.1.*
+%doc %{_mandir}/man1/GraphicsMagickWand-config.1.*
+%doc %{_mandir}/man1/gm.1.*
+%doc %{_mandir}/man4/miff.4.*
+%doc %{_mandir}/man5/quantize.5.*
 
 #--------------------------------------------------------------
 
@@ -176,7 +179,7 @@ This is the %{oname} perl support package. It includes perl modules
 and support files for access to %{oname} library from perl.
 
 %files -n perl-Graphics-Magick
-%{_mandir}/man3*/*::*.3pm*
+%doc %{_mandir}/man3*/*::*.3pm*
 %{perl_vendorarch}/Graphics
 %{perl_vendorarch}/auto
 
@@ -195,12 +198,9 @@ This package contains HTML/PDF documentation of %{name}.
 #--------------------------------------------------------------
 
 %prep
-%setup -qn %{oname}-%{version}
-%autopatch -p1
+%autosetup -n %{oname}-%{version} -p1
 
 %build
-%global optflags %optflags -O3
-
 %configure \
 	--with-lcms2 \
 	--enable-openmp \
