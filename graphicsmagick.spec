@@ -27,13 +27,14 @@
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
-Version:	1.3.38
-Release:	2
+Version:	1.3.40
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://www.graphicsmagick.org/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{oname}-%{version}.tar.xz
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
+Patch1:		graphicsmagick-1.3.40-clang.patch
 
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(liblzma)
