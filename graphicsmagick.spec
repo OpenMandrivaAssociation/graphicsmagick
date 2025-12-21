@@ -36,6 +36,11 @@ Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{o
 Patch0:		GraphicsMagick-1.3.14-linkage.patch
 Patch1:		graphicsmagick-1.3.40-clang.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	ghostscript-devel
