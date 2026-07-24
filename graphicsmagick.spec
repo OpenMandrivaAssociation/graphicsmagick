@@ -27,8 +27,8 @@
 
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
-Version:	1.3.46
-Release:	5
+Version:	1.3.48
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		https://www.graphicsmagick.org/
