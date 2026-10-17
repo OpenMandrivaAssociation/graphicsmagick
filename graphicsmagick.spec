@@ -28,7 +28,7 @@
 Summary:	An X application for displaying and manipulating images
 Name:		graphicsmagick
 Version:	1.3.49
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		https://www.graphicsmagick.org/
@@ -393,5 +393,15 @@ rm -f %{buildroot}%{_libdir}/*.a
 install -m 644 -p coders/*.la %{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/
 install -m 644 -p filters/*.la %{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/filters/
 sed -i 's/^installed=no$/installed=yes/' \
+	%{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.la \
+	%{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/filters/*.la
+# %%pgo records -fprofile-use=$BUILDDIR in LDFLAGS. GraphicsMagick copies
+# those flags into the installed *-config scripts and GraphicsMagick.pc, so
+# consumers fail to link against a profile that exists only in this build root.
+sed -i -E 's/ ?-fprofile-(use|generate|instr-generate)(=[^ ]*)?//g' \
+	%{buildroot}%{_bindir}/GraphicsMagick-config \
+	%{buildroot}%{_bindir}/GraphicsMagick++-config \
+	%{buildroot}%{_bindir}/GraphicsMagickWand-config \
+	%{buildroot}%{_libdir}/pkgconfig/*.pc \
 	%{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/coders/*.la \
 	%{buildroot}%{_libdir}/%{oname}-%{version}/modules-%{qlev}/filters/*.la
